@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'petboarding',
+    'corsheaders',
     'petcare',
     'mainadmin',
     'rest_framework',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,7 +60,13 @@ ROOT_URLCONF = 'Project.urls'
 
 AUTH_USER_MODEL = "petboarding.User" 
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:5174',
+]
 
 #default authentication 
 
