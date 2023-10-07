@@ -9,16 +9,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from rest_framework import status
-
-
-from rest_framework.decorators import api_view
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import authenticate
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -49,11 +47,11 @@ class petboard(APIView):
     def post(self,request):
         email = request.data.get('email')
         password = request.data.get('password')
-        print('daxo')
+        # print('daxo')
         serializer=Userserilizers(data=request.data)
         if  serializer.is_valid():
             user=serializer.save()
-            user.role = 'professional'
+            user.roles = 'boarduser'
             user.set_password(password)
 
             user.save()
@@ -85,7 +83,9 @@ class petboard(APIView):
         else:
             print('Serializer errors are:', serializer.errors)
             return Response({'status': 'error', 'msg': serializer.errors})
-
+        
+        
+#gmail activation 
 @api_view(['GET'])
 def activate(request, uidb64, token):
     try:
@@ -98,7 +98,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         message = "Congrats, You have been succesfully registered"
-        redirect_url =  'http://localhost:5173/login/' + '?message=' + message + '?token' + token
+        redirect_url =  'http://localhost:5173/Home' + '?message=' + message + '?token' + token
     else:
         message = 'Invalid activation link'
         redirect_url = 'http://localhost:5173/signup/' + '?message=' + message

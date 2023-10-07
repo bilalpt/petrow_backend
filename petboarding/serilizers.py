@@ -7,15 +7,15 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class Userserilizers(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['username','email','password','phone']
+        fields=['username','email','password','phone','roles']
 
                 
-    def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = super().create(validated_data)
-        user.set_password(password)
-        user.save()
-        return user
+    # def create(self, validated_data):
+    #     password = validated_data.pop('password')
+    #     user = super().create(validated_data)
+    #     user.set_password(password)
+    #     user.save()
+    #     return user
 
 
 
