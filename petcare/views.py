@@ -78,7 +78,7 @@ class Petcare(APIView):
         
 
 
-        #gmail activation 
+#gmail activation 
 @api_view(['GET'])
 def activate(request, uidb64, token):
     try:
@@ -91,7 +91,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         message = "Congrats, You have been succesfully registered"
-        redirect_url =  'http://localhost:5173/Home' + '?message=' + message + '?token' + token
+        redirect_url =  'http://localhost:5173/PettakerHome' + '?message=' + message + '?token' + token
     else:
         message = 'Invalid activation link'
         redirect_url = 'http://localhost:5173/CareSignup/' + '?message=' + message

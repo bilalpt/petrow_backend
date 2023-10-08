@@ -21,6 +21,8 @@ class User(AbstractUser):
 
     password=models.CharField(max_length=200)
     roles=models.CharField(max_length=20,choices=USER_ROLES,default='boarduser')
+    is_active = models.BooleanField(default=False)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

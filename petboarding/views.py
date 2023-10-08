@@ -18,6 +18,7 @@ from django.utils.encoding import force_bytes
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
+from decouple import config
 
 
 
@@ -86,6 +87,7 @@ class petboard(APIView):
         
         
 #gmail activation 
+
 @api_view(['GET'])
 def activate(request, uidb64, token):
     try:
@@ -98,10 +100,18 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         message = "Congrats, You have been succesfully registered"
-        redirect_url =  'http://localhost:5173/Home' + '?message=' + message + '?token' + token
+        token = create_jwt_pair_tokens(user)
+        Baseurl = config('BaseUrl')
+        if user.role=='user':
+
+            redirect_url =Baseurl +  'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
+        else:
+            redirect_url =Baseurl +  'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
+
+
     else:
         message = 'Invalid activation link'
-        redirect_url = 'http://localhost:5173/signup/' + '?message=' + message
+        redirect_url = 'http://localhost:5173/PetBoards/signup/' + '?message=' + message
     
     
     return HttpResponseRedirect(redirect_url)  
