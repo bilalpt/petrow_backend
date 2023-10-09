@@ -11,12 +11,14 @@ class PetcareSerilizers(serializers.ModelSerializer):
 
 
 class Petcareserilatoken(TokenObtainPairSerializer):
-    def get_token(cls,user):
-        token=super().create(user)
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
         token['id']=user.id
         token['username']=user.username
         token['email']=user.email
         token['is_admin']=user.is_superuser
+        token['roles']=user.roles
         return token
 
 

@@ -25,7 +25,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # Create your views here.
 
 class Generatetoken(TokenObtainPairView):
-    userclass=Petcareserilatoken
+    serializer_class=Petcareserilatoken
 
 
 class Petcare(APIView):
@@ -123,6 +123,7 @@ def create_jwt_pair_tokens_taker(taker):
     refresh['username'] = taker.username
     refresh['role'] = taker.role
     refresh['is_active'] = taker.is_active
+    refresh['roles'] = taker.roles
 
    
     access_token = str(refresh.access_token) # type: ignore

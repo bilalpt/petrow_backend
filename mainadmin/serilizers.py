@@ -25,6 +25,7 @@ class AdmintokenpairSerializers(TokenObtainPairSerializer):
         token['email']=user.email
         token['password']=user.password
         token['is_admin']=user.is_superuser
+        token['roles']=user.roles
 
         return token
 
