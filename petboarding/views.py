@@ -37,6 +37,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = myTokenObtainPairSerializer
 
     
+#data add and send mail 
 
 class petboard(APIView):
 
@@ -56,7 +57,6 @@ class petboard(APIView):
             user.set_password(password)
 
             user.save()
-
 
 
 
@@ -86,7 +86,7 @@ class petboard(APIView):
             return Response({'status': 'error', 'msg': serializer.errors})
         
         
-#gmail activation 
+# gmail activation 
 
 @api_view(['GET'])
 def activate(request, uidb64, token):
@@ -95,18 +95,16 @@ def activate(request, uidb64, token):
         user = User._default_manager.get(pk=uid)
     except (TypeError,ValueError,OverflowError,User.DoesNotExist):
         user = None
-    
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active = True
         user.save()
         message = "Congrats, You have been succesfully registered"
-        token = create_jwt_pair_tokens(user)
-        Baseurl = config('BaseUrl')
-        if user.role=='user':
+        token = create_jwt_pair_tokens_board(user)
+        if user.roles=='boarduser':
 
-            redirect_url =Baseurl +  'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
+            redirect_url = 'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
         else:
-            redirect_url =Baseurl +  'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
+            redirect_url = 'http://localhost:5173/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
 
 
     else:
@@ -114,20 +112,33 @@ def activate(request, uidb64, token):
         redirect_url = 'http://localhost:5173/PetBoards/signup/' + '?message=' + message
     
     
-    return HttpResponseRedirect(redirect_url)  
+    return HttpResponseRedirect(redirect_url)
 
+
+def create_jwt_pair_tokens_board(boarduser):
+    
+    refresh = RefreshToken.for_user(boarduser)
+
+    refresh['email'] = boarduser.email
+    refresh['id'] = boarduser.id
+    refresh['username'] = boarduser.username
+    # refresh['roles'] = boarduser.roles
+    refresh['is_active'] = boarduser.is_active
+
+   
+    access_token = str(refresh.access_token) # type: ignore
+    refresh_token = str(refresh)
+
+    
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+    }
+
+#google signup
 
 class googlesignup(APIView):
-
-    # def get(self,request):
-
-    #     one=User.objects.all()
-    #     print(one)
-
-    #     serializ=Userserilizers(one,many=True)
-    #     return Response({'status':200,'values':serializ.data,'message':'success'})
         
-
 
     def post(self,request):
         email = request.data.get('email')
@@ -148,7 +159,7 @@ class googlesignup(APIView):
         user = authenticate(request, email=email, password=password)
         if user is not None:
 
-            token=create_jwt_pair_tokens(user)
+            token=create_jwt_pair_tokens_board(user)
 
             response_data = {
                 'status' : 'success',
@@ -161,27 +172,47 @@ class googlesignup(APIView):
             return Response (data={'status' : '400' , 'msg' : 'Login failed'})
         
 
+#forgot password
+class forgotpassword(APIView):
+    def post(self,request):
+        email=request.data.get('email')
+        if User.objects.filter(email=email).exists():
+            user=User.objects.get(email=email)
 
-def create_jwt_pair_tokens(user):
-    
-    refresh = RefreshToken.for_user(user)
+            # serializer=forgotpasswordserial(data=request.data)
+            # if serializer.is_valid():
+            
 
-    refresh['email'] = user.email
-    refresh['id'] = user.id
-    refresh['username'] = user.username
-    refresh['role'] = user.role
-    refresh['is_active'] = user.is_active
+            current_site=get_current_site(request)
+            send_message='Please activate your account'
+            massage=render_to_string('account_verification.html',{
+                'user':user,
+                'domain':current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':default_token_generator.make_token(user),
+                'cite':current_site.domain,
+            })
+            mail=user
+            sendmail=EmailMessage(send_message,massage,to=[mail])
+            sendmail.send()
 
-   
-    access_token = str(refresh.access_token) # type: ignore
-    refresh_token = str(refresh)
+            response_data = {
+                'status': 'success',
+                'msg': 'A verification link sent to your registered email address',
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        else:
+            print('Serializer errors are:')
+            return Response({'status': 'error'})
 
-    
-    return {
-        "access_token": access_token,
-        "refresh_token": refresh_token,
-    }
 
+
+
+
+
+
+
+            
 
 
 

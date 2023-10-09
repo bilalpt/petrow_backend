@@ -17,6 +17,12 @@ class Userserilizers(serializers.ModelSerializer):
     #     user.save()
     #     return user
 
+class forgotpasswordserial(serializers.ModelSerializer):
+        class Meta:
+            model=User
+            feilds=['username','email','password','phone','roles']
+
+
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):

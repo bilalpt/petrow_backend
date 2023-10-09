@@ -14,6 +14,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import HttpResponseRedirect
+from decouple import config
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
 
 
 
@@ -90,14 +94,45 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active = True
         user.save()
+      
         message = "Congrats, You have been succesfully registered"
-        redirect_url =  'http://localhost:5173/PettakerHome' + '?message=' + message + '?token' + token
+        token=create_jwt_pair_tokens_taker(user)
+        # Baseurl=config('Baseurl')
+        if user.roles=='taker':
+
+            redirect_url = 'http://localhost:5173/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
+       
+
     else:
         message = 'Invalid activation link'
-        redirect_url = 'http://localhost:5173/CareSignup/' + '?message=' + message
+        redirect_url =  'http://localhost:5173/CareSignup/' + '?message=' + message
     
     
     return HttpResponseRedirect(redirect_url)
+
+
+
+
+
+def create_jwt_pair_tokens_taker(taker):
+    
+    refresh = RefreshToken.for_user(taker)
+
+    refresh['email'] = taker.email
+    refresh['id'] = taker.id
+    refresh['username'] = taker.username
+    refresh['role'] = taker.role
+    refresh['is_active'] = taker.is_active
+
+   
+    access_token = str(refresh.access_token) # type: ignore
+    refresh_token = str(refresh)
+
+    
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+    }
 
 
 

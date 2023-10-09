@@ -11,6 +11,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token> ', views.activate, name='activate'),
 
     path('googleauth',googlesignup.as_view()),
+    path('boardforgotpass',forgotpassword.as_view())
 
     
 
