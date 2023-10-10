@@ -114,6 +114,7 @@ def activate(request, uidb64, token):
     
     return HttpResponseRedirect(redirect_url)
 
+#generate signup token
 
 def create_jwt_pair_tokens_board(boarduser):
     
