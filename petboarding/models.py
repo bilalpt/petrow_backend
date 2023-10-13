@@ -26,6 +26,18 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+
+
+class Boardingform(models.Model):
+    pettype=models.CharField(max_length=12)
+    nuberofpetboarded=models.IntegerField()
+    petbreed=models.CharField(max_length=200)
+    petsize=models.CharField(max_length=200)
+    additionalinfo=models.CharField(max_length=240)
+    startdate=models.DateField(auto_now_add=True)
+    enddate=models.DateField(auto_now_add=True)
+
     
 
 
