@@ -27,6 +27,8 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
+    # branch rename 
+
 
 
 class Boardingform(models.Model):
@@ -38,7 +40,6 @@ class Boardingform(models.Model):
     startdate=models.DateField(auto_now_add=True)
     enddate=models.DateField(auto_now_add=True)
 
-    
 
 
 
