@@ -208,6 +208,23 @@ class forgotpassword(APIView):
             return Response({'status': 'error'})
 
 
+#boarding form
+
+class Boardingform(APIView):
+    def get(self,request):
+        boardform=BoardingForm.objects.all()
+        serialize=Boardformserial(boardform,many=True)
+        return Response({'status':200,'values':serialize.data,'message':'sucess'})
+    
+
+    def post(self,request):
+
+        serializer=Boardformserial(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 201, 'message': 'success'})
+        else:
+            return Response({'status': 400, 'errors': serializer.errors, 'message': 'error'})
 
 
 

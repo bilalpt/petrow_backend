@@ -20,9 +20,13 @@ class Userserilizers(serializers.ModelSerializer):
 class forgotpasswordserial(serializers.ModelSerializer):
         class Meta:
             model=User
-            feilds=['username','email','password','phone','roles']
+            fields=['username','email','password','phone','roles']
 
 
+class Boardformserial(serializers.ModelSerializer):
+     class Meta:
+          model = BoardingForm
+          fields= ['pettype','nuberofpetboarded','petbreed','petsize','additionalinfo','startdate','enddate']
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):
