@@ -13,6 +13,8 @@ urlpatterns = [
     path('googleauth',googlesignup.as_view()),
     path('boardforgotpass',forgotpassword.as_view()),
     path('Boardingform',Boardingform.as_view()),
+    path('Boardingform/<int:id>',Boardingform.as_view()),
+
 
     
 

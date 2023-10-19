@@ -33,7 +33,7 @@ class User(AbstractUser):
 
 class BoardingForm(models.Model):
     pettype=models.CharField(max_length=12)
-    nuberofpetboarded=models.IntegerField()
+    nuberofpetboarded=models.CharField(max_length=20)
     petbreed=models.CharField(max_length=200)
     petsize=models.CharField(max_length=200)
     additionalinfo=models.CharField(max_length=240)

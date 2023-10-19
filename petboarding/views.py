@@ -211,6 +211,7 @@ class forgotpassword(APIView):
 #boarding form
 
 class Boardingform(APIView):
+    
     def get(self,request):
         boardform=BoardingForm.objects.all()
         serialize=Boardformserial(boardform,many=True)
@@ -222,9 +223,26 @@ class Boardingform(APIView):
         serializer=Boardformserial(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'status': 201, 'message': 'success'})
+            return Response(serializer.data)
         else:
             return Response({'status': 400, 'errors': serializer.errors, 'message': 'error'})
+        
+
+
+    def patch(self,request,id):
+        try:
+            boardform = BoardingForm.objects.get(id=id)
+            print('baxter')
+        except BoardingForm.DoesNotExist:
+            return Response({'status': 404, 'message': 'Not Found'})
+
+        serializer = Boardformserial(boardform, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 200, 'values': serializer.data, 'message': 'success'})
+        else:
+            return Response({'status': 400, 'errors': serializer.errors, 'message': 'error'})
+
 
 
 
