@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -229,24 +230,11 @@ class Boardingform(APIView):
         
 
 
-    def patch(self,request,id):
-        try:
-            boardform = BoardingForm.objects.get(id=id)
-            print('baxter')
-        except BoardingForm.DoesNotExist:
-            return Response({'status': 404, 'message': 'Not Found'})
 
-        serializer = Boardformserial(boardform, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 200, 'values': serializer.data, 'message': 'success'})
-        else:
-            return Response({'status': 400, 'errors': serializer.errors, 'message': 'error'})
-
-
-
-
-
+class BoardingformEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class = Boardformserial
+    lookup_field = 'id'
+    queryset = BoardingForm.objects.all()
 
 
             
