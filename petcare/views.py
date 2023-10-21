@@ -136,4 +136,15 @@ def create_jwt_pair_tokens_taker(taker):
     }
 
 
+#taker about form backend
+
+class TakerAboutView(APIView):
+    
+    def get(self,request):
+        Aboutget=TakerAbotpage.objects.all()
+
+        serializer=TakerAboutPageserial(Aboutget,many=True)
+        return Response({'status':200,'values':serializer.data,'message':'sucess'})
+
+
 
