@@ -16,8 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import HttpResponseRedirect
 from decouple import config
 from rest_framework_simplejwt.tokens import RefreshToken
-
-
+from rest_framework.generics import CreateAPIView
 
 
 
@@ -145,15 +144,23 @@ class TakerAboutView(APIView):
 
         serializer=TakerAboutPageserial(Aboutget,many=True)
         return Response({'status':200,'values':serializer.data,'message':'sucess'})
-    
-    def post(self,request):
         
-        serializer=TakerAboutPageserial(data=request.data)
+    def post(self, request):
+
+        serializer = TakerAboutPageserial(data=request.data)
         if serializer.is_valid():
+            print(request.data)
+
             serializer.save()
-            return Response(serializer.data)
+            return Response({'status': 200, 'message': 'success'})
         else:
-            return Response({'status':400,'error':serializer.error,'message':'error'})
+            return Response({'status': 400, 'message': 'error', 'errors': serializer.errors})
+
+
+# class TakerAboutView(CreateAPIView):
+#     serializer_class=TakerAboutPageserial
+#     queryset=TakerAbotpage.objects.all()
+
 
 
 

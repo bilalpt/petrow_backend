@@ -11,7 +11,7 @@ class PetcareSerilizers(serializers.ModelSerializer):
 class TakerAboutPageserial(serializers.ModelSerializer):
     class Meta:
         model=TakerAbotpage
-        fields=['id','indroduction','petexperience','enjoyment_or','skillandqualification']
+        fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications']
 
 
 
