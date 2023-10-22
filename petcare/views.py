@@ -145,6 +145,16 @@ class TakerAboutView(APIView):
 
         serializer=TakerAboutPageserial(Aboutget,many=True)
         return Response({'status':200,'values':serializer.data,'message':'sucess'})
+    
+    def post(self,request):
+        
+        serializer=TakerAboutPageserial(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response({'status':400,'error':serializer.error,'message':'error'})
+
 
 
 
