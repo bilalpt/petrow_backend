@@ -14,6 +14,11 @@ class TakerAboutPageserial(serializers.ModelSerializer):
         fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications']
 
 
+class ServiceDescriptionSerial(serializers.ModelSerializer):
+    class Meta:
+        model=DescribeService
+        fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode']
+
 
 class Petcareserilatoken(TokenObtainPairSerializer):
     @classmethod

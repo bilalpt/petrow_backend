@@ -4,3 +4,4 @@ from .models import *
 # Register your models here.
 
 admin.site.register(TakerAbotpage)
+admin.site.register(DescribeService)

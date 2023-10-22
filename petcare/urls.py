@@ -6,5 +6,6 @@ urlpatterns = [
     path('token_refresh_petcare', TokenRefreshView.as_view(), name='token_refresh'),
     path('tokenobtain_petcare', Generatetoken.as_view()),
     path('TakerAboutpage',TakerAboutView.as_view()),
+    path('Takerdetalis',ServiceDescriptionView.as_view()),
 
 ]

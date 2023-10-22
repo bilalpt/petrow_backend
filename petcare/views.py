@@ -162,6 +162,27 @@ class TakerAboutView(APIView):
 #     queryset=TakerAbotpage.objects.all()
 
 
+#taker service descriptions and details
+
+class ServiceDescriptionView(APIView):
+    
+    #get method
+    def get(self,request):
+        describdata=DescribeService.objects.all()
+        serializer=ServiceDescriptionSerial(describdata,many=True)
+        return Response({'sucess':200,'data':serializer.data})
+    
+    def post(self,request):
+
+        serializer=ServiceDescriptionSerial(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status':200,'messages':'sucess'})
+        else:
+            return Response({'status':400,'message':'error'})
+
+
+        
 
 
 
