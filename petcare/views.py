@@ -18,6 +18,8 @@ from decouple import config
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.generics import CreateAPIView
 
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+
 
 
 
@@ -152,7 +154,7 @@ class TakerAboutView(APIView):
             print(request.data)
 
             serializer.save()
-            return Response({'status': 200, 'message': 'success'})
+            return Response(serializer.data)
         else:
             return Response({'status': 400, 'message': 'error', 'errors': serializer.errors})
 
@@ -177,12 +179,15 @@ class ServiceDescriptionView(APIView):
         serializer=ServiceDescriptionSerial(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'status':200,'messages':'sucess'})
+            return Response(serializer.data)
         else:
             return Response({'status':400,'message':'error'})
 
 
-        
+class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class=DescribeService
+    lookup_field='id'
+    queryset=DescribeService.objects.all()
 
 
 
