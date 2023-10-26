@@ -20,6 +20,9 @@ from rest_framework.generics import CreateAPIView
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
+from django.views import View
+
+
 
 
 
@@ -183,11 +186,33 @@ class ServiceDescriptionView(APIView):
         else:
             return Response({'status':400,'message':'error'})
 
+#taker service description
 
 class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
-    serializer_class=DescribeService
+    serializer_class=ServiceDescriptionSerial
     lookup_field='id'
     queryset=DescribeService.objects.all()
 
 
+# taker with pet
+
+class Takerwithpet(View):
+    def post(self, request):
+        if request.FILES.getlist('images'):
+            images = request.FILES.getlist('images')
+            uploaded_urls = []
+
+            for image in images:
+                # Customize the path where you want to save the images
+                # For example, in the "media" directory
+                # Make sure you have 'MEDIA_ROOT' and 'MEDIA_URL' configured in your Django settings
+                image_path = f'media/{image.name}'
+                with open(image_path, 'wb+') as destination:
+                    for chunk in image.chunks():
+                        destination.write(chunk)
+                uploaded_urls.append(request.build_absolute_uri(image_path))
+
+            return Response({'success': True, 'uploaded_urls': uploaded_urls})
+        else:
+            return Response({'success': False, 'error': 'No images provided or invalid request method'})
 
