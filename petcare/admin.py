@@ -5,3 +5,4 @@ from .models import *
 
 admin.site.register(TakerAbotpage)
 admin.site.register(DescribeService)
+admin.site.register(Takerwithpet)

@@ -21,6 +21,9 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 from django.views import View
+from petboarding.models import User
+
+import json
 
 
 
@@ -196,23 +199,37 @@ class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
 
 # taker with pet
 
-class Takerwithpet(View):
-    def post(self, request):
-        if request.FILES.getlist('images'):
-            images = request.FILES.getlist('images')
-            uploaded_urls = []
+class Takerwithpet(CreateAPIView):
+    serializer_class=TakerwithpetSerial
+    queryset=Takerwithpet.objects.all()
+    
 
-            for image in images:
-                # Customize the path where you want to save the images
-                # For example, in the "media" directory
-                # Make sure you have 'MEDIA_ROOT' and 'MEDIA_URL' configured in your Django settings
-                image_path = f'media/{image.name}'
-                with open(image_path, 'wb+') as destination:
-                    for chunk in image.chunks():
-                        destination.write(chunk)
-                uploaded_urls.append(request.build_absolute_uri(image_path))
+#taker user details
+            
+class TakerUserInfo(RetrieveUpdateDestroyAPIView):
+    serializer_class = PetcareSerilizers
+    queryset = User.objects.all()
 
-            return Response({'success': True, 'uploaded_urls': uploaded_urls})
-        else:
-            return Response({'success': False, 'error': 'No images provided or invalid request method'})
+
+# taker profile edit
+
+class TakerprofileEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class=PetcareSerilizers
+    lookup_field='id'
+    queryset=User.objects.all()
+
+
+
+class Takeridproof(CreateAPIView):
+    queryset = Takeridproof.objects.all()
+    serializer_class = Takeridproofserial
+
+    def create(self, request, *args, **kwargs):
+        images = request.data.pop('images', [])
+        pet = Takeridproof.objects.create(**request.data)
+        for image in images:
+            pet.images.create(image=image)
+        return Response(self.get_serializer(pet).data, status=status.HTTP_201_CREATED)
+
+    
 

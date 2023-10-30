@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from .serilizers import *
 from .models import *
 from rest_framework.views import APIView
@@ -230,14 +231,17 @@ class Boardingform(APIView):
         
 
 
+# board form edit
 
 class BoardingformEdit(RetrieveUpdateDestroyAPIView):
     serializer_class = Boardformserial
     lookup_field = 'id'
     queryset = BoardingForm.objects.all()
 
-
-            
+# single board user
+class Singleboarduserget(RetrieveUpdateDestroyAPIView):
+    serializer_class=Userserilizers
+    queryset=User.objects.all()
 
 
 

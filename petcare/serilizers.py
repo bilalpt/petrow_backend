@@ -6,7 +6,8 @@ from .models import *
 class PetcareSerilizers(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['username','email','password','phone','roles']
+        fields=['id','username','email','phone','roles']
+
 
 class TakerAboutPageserial(serializers.ModelSerializer):
     class Meta:
@@ -14,10 +15,22 @@ class TakerAboutPageserial(serializers.ModelSerializer):
         fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications']
 
 
+
 class ServiceDescriptionSerial(serializers.ModelSerializer):
     class Meta:
         model=DescribeService
         fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode']
+        
+
+class TakerwithpetSerial(serializers.ModelSerializer):
+    class Meta:
+        model=Takerwithpet
+        fields=['id','image','uploaded_at']
+
+class Takeridproofserial(serializers.ModelSerializer):
+    models=Takeridproof
+    fields=['id','proofimage']
+
 
 
 class Petcareserilatoken(TokenObtainPairSerializer):

@@ -14,6 +14,7 @@ urlpatterns = [
     path('boardforgotpass',forgotpassword.as_view()),
     path('Boardingform',Boardingform.as_view()),
     path('boardingformEdit/<int:id>',BoardingformEdit.as_view()),
+    path('singleboarduser/<int:pk>/',Singleboarduserget.as_view()),
 
 
     
