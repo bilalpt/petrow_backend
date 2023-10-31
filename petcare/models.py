@@ -48,3 +48,4 @@ class Takerwithpet(models.Model):
 class Takeridproof(models.Model):
     proofimage=models.ImageField(upload_to='uploads/')
 
+

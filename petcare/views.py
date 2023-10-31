@@ -18,12 +18,15 @@ from decouple import config
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.generics import CreateAPIView
 
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 
 from django.views import View
 from petboarding.models import User
 
 import json
+# for the multiple image
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 
@@ -220,16 +223,28 @@ class TakerprofileEdit(RetrieveUpdateDestroyAPIView):
 
 
 
-class Takeridproof(CreateAPIView):
+class Takeridproofclass(ListCreateAPIView):
     queryset = Takeridproof.objects.all()
     serializer_class = Takeridproofserial
 
-    def create(self, request, *args, **kwargs):
-        images = request.data.pop('images', [])
-        pet = Takeridproof.objects.create(**request.data)
-        for image in images:
-            pet.images.create(image=image)
-        return Response(self.get_serializer(pet).data, status=status.HTTP_201_CREATED)
+    def post(self, request):
+        data=[]
+        flag = True
+
+
+        for image in request.FILES.getlist('images'):
+            serializer = Takeridproofserial(data=request.data) # type: ignore
+
+            if serializer.is_valid():
+                serializer.save()
+                data.append(serializer.data)
+            else:
+                flag = False
+            
+        if flag:
+            return Response(data=data, status=status.HTTP_201_CREATED )
+        else:
+            return Response(data=[], status=status.HTTP_400_BAD_REQUEST)
 
     
 

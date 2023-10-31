@@ -12,6 +12,6 @@ urlpatterns = [
     path('Takerwithpet', Takerwithpet.as_view()),
     path('takeruserinfo/<int:pk>/', TakerUserInfo.as_view()),
     path('TakerprofileEdit/<int:id>',TakerprofileEdit.as_view()),
-    path('TakerDetais',Takeridproof.as_view()),
+    path('TakerDetais',Takeridproofclass.as_view()),
 
 ]

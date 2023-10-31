@@ -28,8 +28,9 @@ class TakerwithpetSerial(serializers.ModelSerializer):
         fields=['id','image','uploaded_at']
 
 class Takeridproofserial(serializers.ModelSerializer):
-    models=Takeridproof
-    fields=['id','proofimage']
+    class Meta:
+        model = Takeridproof
+        fields = '__all__'
 
 
 
