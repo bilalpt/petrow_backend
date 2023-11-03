@@ -222,29 +222,31 @@ class TakerprofileEdit(RetrieveUpdateDestroyAPIView):
     queryset=User.objects.all()
 
 
+#taker id proof multiple images
 
 class Takeridproofclass(ListCreateAPIView):
     queryset = Takeridproof.objects.all()
     serializer_class = Takeridproofserial
 
-    def post(self, request):
-        data=[]
-        flag = True
+    def create(self, request, *args, **kwargs):
+        images_data = request.data.getlist('images')  # Assuming images is a list of image data
+        takeridproof_serializer = self.get_serializer(data=request.data)
+
+        if takeridproof_serializer.is_valid():
+            takeridproof = takeridproof_serializer.save()
+
+            # Save images
+            for image_data in images_data:
+                takeridproof.images.create(image=image_data)
+
+            return Response(self.get_serializer(takeridproof).data, status=status.HTTP_201_CREATED)
+
+        return Response(takeridproof_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-        for image in request.FILES.getlist('images'):
-            serializer = Takeridproofserial(data=request.data) # type: ignore
+#taker id proof with form
 
-            if serializer.is_valid():
-                serializer.save()
-                data.append(serializer.data)
-            else:
-                flag = False
-            
-        if flag:
-            return Response(data=data, status=status.HTTP_201_CREATED )
-        else:
-            return Response(data=[], status=status.HTTP_400_BAD_REQUEST)
-
-    
+class TakeridwithformView(CreateAPIView):
+    serializer_class=TakerFormidproofserial 
+    queryset=TakerwithIdform   
 

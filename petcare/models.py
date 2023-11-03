@@ -49,3 +49,13 @@ class Takeridproof(models.Model):
     proofimage=models.ImageField(upload_to='uploads/')
 
 
+#taker id with id proof
+
+class TakerwithIdform(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)  
+
+    adharimg=models.ImageField(upload_to='adharimg/')
+    otheridimg=models.ImageField(upload_to='otheridimg/')
+
+
+

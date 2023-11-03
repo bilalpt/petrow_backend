@@ -32,6 +32,11 @@ class Takeridproofserial(serializers.ModelSerializer):
         model = Takeridproof
         fields = '__all__'
 
+class TakerFormidproofserial(serializers.ModelSerializer):
+    class Meta:
+        model = TakerwithIdform
+        fields='__all__'
+
 
 
 class Petcareserilatoken(TokenObtainPairSerializer):
