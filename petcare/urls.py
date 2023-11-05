@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from petcare.views import *
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -13,6 +13,6 @@ urlpatterns = [
     path('takeruserinfo/<int:pk>/', TakerUserInfo.as_view()),
     path('TakerprofileEdit/<int:id>/',TakerprofileEdit.as_view()),
     path('TakerDetails',Takeridproofclass.as_view()),
-    path('Takeridwithform',TakeridwithformView.as_view()),
+    path('TakeridwithformView',TakeridwithformView.as_view()),
 
 ]

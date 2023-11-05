@@ -151,7 +151,7 @@ def create_jwt_pair_tokens_taker(taker):
 class TakerAboutView(APIView):
     
     def get(self,request):
-        Aboutget=TakerAbotpage.objects.all()
+        Aboutget=TakerAbotpag.objects.all()
 
         serializer=TakerAboutPageserial(Aboutget,many=True)
         return Response({'status':200,'values':serializer.data,'message':'sucess'})
@@ -166,6 +166,8 @@ class TakerAboutView(APIView):
             return Response(serializer.data)
         else:
             return Response({'status': 400, 'message': 'error', 'errors': serializer.errors})
+
+
 
 
 # class TakerAboutView(CreateAPIView):
@@ -248,5 +250,5 @@ class Takeridproofclass(ListCreateAPIView):
 
 class TakeridwithformView(CreateAPIView):
     serializer_class=TakerFormidproofserial 
-    queryset=TakerwithIdform   
+    queryset=TakerwithIdform.objects.all() 
 

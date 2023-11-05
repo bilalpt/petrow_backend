@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(TakerAbotpage)
+admin.site.register(TakerAbotpag)
 admin.site.register(DescribeService)
 admin.site.register(Takerwithpet)
 admin.site.register(Takeridproof)

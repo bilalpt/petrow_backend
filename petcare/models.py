@@ -6,14 +6,22 @@ from petboarding.models import *
 
 #taker about page
 
-class TakerAbotpage(models.Model):
+class TakerAbotpag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.user = self.user or request.user
+    
+
 
     introduction=models.CharField(max_length=255)
     petexperience=models.CharField(max_length=255)
     workstatus=models.CharField(max_length=255)
     skillandqualifications=models.CharField(max_length=255)
     otherpetqualifications=models.CharField(max_length=255,null=True)
+
+
+    
 
 
 #taker description
@@ -52,10 +60,14 @@ class Takeridproof(models.Model):
 #taker id with id proof
 
 class TakerwithIdform(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)  
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)  
 
     adharimg=models.ImageField(upload_to='adharimg/')
-    otheridimg=models.ImageField(upload_to='otheridimg/')
+    otheridimg=models.ImageField(upload_to='otheridimg/',null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True,null=True)
+
+
+
 
 
 

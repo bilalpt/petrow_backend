@@ -11,7 +11,7 @@ class PetcareSerilizers(serializers.ModelSerializer):
 
 class TakerAboutPageserial(serializers.ModelSerializer):
     class Meta:
-        model=TakerAbotpage
+        model=TakerAbotpag
         fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications']
 
 
@@ -30,12 +30,12 @@ class TakerwithpetSerial(serializers.ModelSerializer):
 class Takeridproofserial(serializers.ModelSerializer):
     class Meta:
         model = Takeridproof
-        fields = '__all__'
+        fields = ['id','proofimage']
 
 class TakerFormidproofserial(serializers.ModelSerializer):
     class Meta:
         model = TakerwithIdform
-        fields='__all__'
+        fields=['id','adharimg','otheridimg']
 
 
 
