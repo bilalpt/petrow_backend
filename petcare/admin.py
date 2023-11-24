@@ -5,6 +5,8 @@ from .models import *
 
 admin.site.register(TakerAbotpag)
 admin.site.register(DescribeService)
-admin.site.register(Takerwithpet)
+admin.site.register(Takerwithpets)
 admin.site.register(Takeridproof)
 admin.site.register(TakerwithIdform)
+admin.site.register(DescribeServicetwo)
+

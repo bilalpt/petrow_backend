@@ -27,6 +27,10 @@ import json
 # for the multiple image
 from django.views.decorators.csrf import csrf_exempt
 
+# user chekking
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 
 
 
@@ -149,6 +153,8 @@ def create_jwt_pair_tokens_taker(taker):
 #taker about form backend
 
 class TakerAboutView(APIView):
+
+
     
     def get(self,request):
         Aboutget=TakerAbotpag.objects.all()
@@ -174,6 +180,16 @@ class TakerAboutView(APIView):
 #     serializer_class=TakerAboutPageserial
 #     queryset=TakerAbotpage.objects.all()
 
+#taker about edit
+
+class TakeraboutEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class=TakerAboutPageserial
+    lookup_field='id'
+    queryset=TakerAbotpag.objects.all()
+
+
+
+
 
 #taker service descriptions and details
 
@@ -181,16 +197,20 @@ class ServiceDescriptionView(APIView):
     
     #get method
     def get(self,request):
-        describdata=DescribeService.objects.all()
+        describdata=DescribeServicetwo.objects.all()
         serializer=ServiceDescriptionSerial(describdata,many=True)
         return Response({'sucess':200,'data':serializer.data})
     
     def post(self,request):
 
         serializer=ServiceDescriptionSerial(data=request.data)
+        print(serializer)
+        print(request.data)
         if serializer.is_valid():
+            # print(request.data,'baxteer')
+
             serializer.save()
-            return Response(serializer.data)
+            return Response({'status': 201, 'msg': 'Data saved successfully', 'data': serializer.data})
         else:
             return Response({'status':400,'message':'error'})
 
@@ -199,14 +219,14 @@ class ServiceDescriptionView(APIView):
 class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
     serializer_class=ServiceDescriptionSerial
     lookup_field='id'
-    queryset=DescribeService.objects.all()
+    queryset=DescribeServicetwo.objects.all()
 
 
 # taker with pet
 
 class Takerwithpet(CreateAPIView):
     serializer_class=TakerwithpetSerial
-    queryset=Takerwithpet.objects.all()
+    queryset=Takerwithpets.objects.all()
     
 
 #taker user details

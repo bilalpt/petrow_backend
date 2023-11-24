@@ -15,6 +15,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import HttpResponseRedirect
+from petboarding.models import *
+from petcare.models import *
+from petcare.serilizers import *
 
 
 
@@ -23,3 +26,14 @@ from django.shortcuts import HttpResponseRedirect
 
 class Generatetoken(TokenObtainPairView):
     serializer_class=AdmintokenpairSerializers
+
+
+
+class PettakerRequest(APIView):
+    def get(self,request):
+        if TakerwithIdform.user.id:
+            boardingusers=TakerwithIdform.objects.all()
+            
+            serializer=TakerAboutPageserial(boardingusers,many=True)
+            return Response({'status':200,'values':serializer.data,'message':'sucess'})
+

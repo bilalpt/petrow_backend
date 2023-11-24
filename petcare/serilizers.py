@@ -8,24 +8,24 @@ class PetcareSerilizers(serializers.ModelSerializer):
         model=User
         fields=['id','username','email','phone','roles']
 
-
+#taker about page serial
 class TakerAboutPageserial(serializers.ModelSerializer):
     class Meta:
         model=TakerAbotpag
-        fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications']
+        fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications','user']
 
 
 
 class ServiceDescriptionSerial(serializers.ModelSerializer):
     class Meta:
-        model=DescribeService
-        fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode']
+        model=DescribeServicetwo
+        fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode','user']
         
 
 class TakerwithpetSerial(serializers.ModelSerializer):
     class Meta:
-        model=Takerwithpet
-        fields=['id','image','uploaded_at']
+        model=Takerwithpets
+        fields=['id','image','uploaded_at','user']
 
 class Takeridproofserial(serializers.ModelSerializer):
     class Meta:
@@ -35,7 +35,7 @@ class Takeridproofserial(serializers.ModelSerializer):
 class TakerFormidproofserial(serializers.ModelSerializer):
     class Meta:
         model = TakerwithIdform
-        fields=['id','adharimg','otheridimg']
+        fields=['id','adharimg','otheridimg','user']
 
 
 

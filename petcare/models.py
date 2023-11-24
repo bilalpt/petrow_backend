@@ -8,17 +8,16 @@ from petboarding.models import *
 
 class TakerAbotpag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.user = self.user or request.user
-    
-
 
     introduction=models.CharField(max_length=255)
     petexperience=models.CharField(max_length=255)
     workstatus=models.CharField(max_length=255)
     skillandqualifications=models.CharField(max_length=255)
     otherpetqualifications=models.CharField(max_length=255,null=True)
+
+    class Meta:
+        verbose_name = 'Taker Abotpag'
+        verbose_name_plural = 'Taker Abotpag'
 
 
     
@@ -41,9 +40,30 @@ class DescribeService(models.Model):
     location=models.CharField(max_length=255)
     pincode=models.IntegerField()
 
+    class Meta:
+        verbose_name = 'DescribeService'
+        verbose_name_plural = 'DescribeService'
+
+# describe services two   
+
+class DescribeServicetwo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+
+    servicename=models.CharField(max_length=255)
+    petcount=models.CharField(max_length=20)
+    acceptingpet=models.CharField(max_length=12)
+    acceptingpetsize=models.CharField(max_length=20)
+    howmanywalk=models.CharField(max_length=8)
+    apartmentorhome=models.CharField(max_length=20)
+    transportemergencies=models.CharField(max_length=10)
+    sleepinglocation=models.CharField(max_length=255)
+    price=models.CharField(max_length=255)
+    location=models.CharField(max_length=255)
+    pincode=models.CharField(max_length=255)     
+
 # taker with pet images    
 
-class Takerwithpet(models.Model):
+class Takerwithpets(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
 
     image = models.ImageField(upload_to='uploads/')

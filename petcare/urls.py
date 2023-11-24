@@ -14,5 +14,6 @@ urlpatterns = [
     path('TakerprofileEdit/<int:id>/',TakerprofileEdit.as_view()),
     path('TakerDetails',Takeridproofclass.as_view()),
     path('TakeridwithformView',TakeridwithformView.as_view()),
+    path('TakeraboutEdit/<int:id>/',TakeraboutEdit.as_view()),
 
 ]
