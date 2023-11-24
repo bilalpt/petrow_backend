@@ -223,11 +223,15 @@ class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
 
 
 # taker with pet
-
 class Takerwithpet(CreateAPIView):
     serializer_class=TakerwithpetSerial
     queryset=Takerwithpets.objects.all()
-    
+
+# taker with petedit
+class TakerwithpetEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class =TakerwithpetSerial
+    lookup_field='id'
+    queryset=Takerwithpets.objects.all()
 
 #taker user details
             
@@ -267,8 +271,12 @@ class Takeridproofclass(ListCreateAPIView):
 
 
 #taker id proof with form
-
 class TakeridwithformView(CreateAPIView):
     serializer_class=TakerFormidproofserial 
     queryset=TakerwithIdform.objects.all() 
 
+#taker  id proof edit 
+class TakeridproofEdit(RetrieveUpdateDestroyAPIView):
+    serializer_class=TakerFormidproofserial
+    lookup_field='id'
+    queryset=TakerwithIdform.objects.all()

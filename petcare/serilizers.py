@@ -15,13 +15,13 @@ class TakerAboutPageserial(serializers.ModelSerializer):
         fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications','user']
 
 
-
+#taker description serial
 class ServiceDescriptionSerial(serializers.ModelSerializer):
     class Meta:
         model=DescribeServicetwo
         fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode','user']
         
-
+#taker with pet serial
 class TakerwithpetSerial(serializers.ModelSerializer):
     class Meta:
         model=Takerwithpets

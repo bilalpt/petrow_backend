@@ -15,5 +15,7 @@ urlpatterns = [
     path('TakerDetails',Takeridproofclass.as_view()),
     path('TakeridwithformView',TakeridwithformView.as_view()),
     path('TakeraboutEdit/<int:id>/',TakeraboutEdit.as_view()),
+    path('TakerwithpetEdit/<int:id>',TakerwithpetEdit.as_view()),
+    path('TakeridproofEdit/<int:id>',TakeridproofEdit.as_view()),
 
 ]
