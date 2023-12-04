@@ -31,6 +31,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+#list api view
+from rest_framework.generics import ListAPIView
+
 
 
 
@@ -43,16 +46,6 @@ class Generatetoken(TokenObtainPairView):
 
 
 class Petcare(APIView):
-
-    # def get(self,request):
-
-    #     user=User.objects.all()
-    #     userserial=Petcareserilatoken(user,many=True)
-    #     return Response({'success'})
-                
-
-
-
 
     def post(self,request):
         email=request.data.get('email')
@@ -83,6 +76,8 @@ class Petcare(APIView):
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
 
+
+
             response_data = {
                 'status': 'success',
                 'msg': 'A verification link sent to your registered email address',
@@ -93,7 +88,14 @@ class Petcare(APIView):
         else:
             print('Serializer errors are:', serializer.errors)
             return Response({'status': 'error', 'msg': serializer.errors})
-        
+
+class AboutpageRetrive(ListAPIView):
+    serializer_class=TakerAboutPageserial
+    def get_queryset(self):
+        user_id=self.kwargs['id']
+        queryset=TakerAbotpag.objects.filter(user_id=user_id)
+        return queryset
+    
 
 
 #gmail activation 
@@ -115,7 +117,6 @@ def activate(request, uidb64, token):
         if user.roles=='taker':
 
             redirect_url = 'http://localhost:5173/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
-       
 
     else:
         message = 'Invalid activation link'
@@ -153,17 +154,12 @@ def create_jwt_pair_tokens_taker(taker):
 #taker about form backend
 
 class TakerAboutView(APIView):
-
-
-    
     def get(self,request):
         Aboutget=TakerAbotpag.objects.all()
-
         serializer=TakerAboutPageserial(Aboutget,many=True)
         return Response({'status':200,'values':serializer.data,'message':'sucess'})
         
     def post(self, request):
-
         serializer = TakerAboutPageserial(data=request.data)
         if serializer.is_valid():
             print(request.data)
@@ -174,12 +170,6 @@ class TakerAboutView(APIView):
             return Response({'status': 400, 'message': 'error', 'errors': serializer.errors})
 
 
-
-
-# class TakerAboutView(CreateAPIView):
-#     serializer_class=TakerAboutPageserial
-#     queryset=TakerAbotpage.objects.all()
-
 #taker about edit
 
 class TakeraboutEdit(RetrieveUpdateDestroyAPIView):
@@ -188,34 +178,33 @@ class TakeraboutEdit(RetrieveUpdateDestroyAPIView):
     queryset=TakerAbotpag.objects.all()
 
 
-
-
-
 #taker service descriptions and details
 
 class ServiceDescriptionView(APIView):
-    
-    #get method
     def get(self,request):
         describdata=DescribeServicetwo.objects.all()
         serializer=ServiceDescriptionSerial(describdata,many=True)
         return Response({'sucess':200,'data':serializer.data})
-    
     def post(self,request):
-
         serializer=ServiceDescriptionSerial(data=request.data)
         print(serializer)
         print(request.data)
         if serializer.is_valid():
-            # print(request.data,'baxteer')
-
             serializer.save()
             return Response({'status': 201, 'msg': 'Data saved successfully', 'data': serializer.data})
         else:
             return Response({'status':400,'message':'error'})
 
-#taker service description
+#service description retreve
+class descriptionRetrive(ListAPIView):
+    serializer_class=ServiceDescriptionSerial
+    def get_queryset(self):
+        user_id=self.kwargs['id']
+        queryset=DescribeServicetwo.objects.filter(user_id=user_id)
+        return queryset
 
+
+#taker service description
 class ServiceDescriptionEdit(RetrieveUpdateDestroyAPIView):
     serializer_class=ServiceDescriptionSerial
     lookup_field='id'
@@ -227,7 +216,7 @@ class Takerwithpet(CreateAPIView):
     serializer_class=TakerwithpetSerial
     queryset=Takerwithpets.objects.all()
 
-# taker with petedit
+# taker with pet edit
 class TakerwithpetEdit(RetrieveUpdateDestroyAPIView):
     serializer_class =TakerwithpetSerial
     lookup_field='id'
@@ -238,6 +227,7 @@ class TakerwithpetEdit(RetrieveUpdateDestroyAPIView):
 class TakerUserInfo(RetrieveUpdateDestroyAPIView):
     serializer_class = PetcareSerilizers
     queryset = User.objects.all()
+
 
 
 # taker profile edit
@@ -257,23 +247,26 @@ class Takeridproofclass(ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         images_data = request.data.getlist('images')  # Assuming images is a list of image data
         takeridproof_serializer = self.get_serializer(data=request.data)
-
         if takeridproof_serializer.is_valid():
             takeridproof = takeridproof_serializer.save()
-
             # Save images
             for image_data in images_data:
                 takeridproof.images.create(image=image_data)
-
             return Response(self.get_serializer(takeridproof).data, status=status.HTTP_201_CREATED)
-
         return Response(takeridproof_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #taker id proof with form
 class TakeridwithformView(CreateAPIView):
     serializer_class=TakerFormidproofserial 
-    queryset=TakerwithIdform.objects.all() 
+    queryset=TakerwithIdform.objects.all()
+
+class TakerIdRetreve(ListAPIView):
+    serializer_class=TakerFormidproofserial
+    def get_queryset(self):
+        user_id=self.kwargs['id']
+        queryset=TakerwithIdform.objects.filter(user_id=user_id)
+        return queryset
 
 #taker  id proof edit 
 class TakeridproofEdit(RetrieveUpdateDestroyAPIView):

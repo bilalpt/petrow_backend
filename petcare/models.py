@@ -8,7 +8,6 @@ from petboarding.models import *
 
 class TakerAbotpag(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-
     introduction=models.CharField(max_length=255)
     petexperience=models.CharField(max_length=255)
     workstatus=models.CharField(max_length=255)
