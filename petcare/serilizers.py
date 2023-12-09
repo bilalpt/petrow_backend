@@ -6,7 +6,7 @@ from .models import *
 class PetcareSerilizers(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['id','username','email','phone','roles']
+        fields=['id','username','email','phone','roles','profileimage']
 
 #taker about page serial
 class TakerAboutPageserial(serializers.ModelSerializer):

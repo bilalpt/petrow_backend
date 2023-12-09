@@ -12,8 +12,6 @@ class User(AbstractUser):
         ('taker','Taker'),
         ('admin','Admin'),
     )
-
-
     username=models.CharField(max_length=150,unique=True)
     email=models.EmailField(max_length=200,unique=True)
     phone=models.CharField(max_length=14)
@@ -22,6 +20,7 @@ class User(AbstractUser):
     password=models.CharField(max_length=200)
     roles=models.CharField(max_length=20,choices=USER_ROLES,default='boarduser')
     is_active = models.BooleanField(default=False)
+    profileimage =models.ImageField(upload_to='userprofileimage/',null=True)
 
 
     USERNAME_FIELD = 'email'
