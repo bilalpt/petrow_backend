@@ -15,6 +15,9 @@ urlpatterns = [
     path('Boardingform',Boardingform.as_view()),
     path('boardingformEdit/<int:id>',BoardingformEdit.as_view()),
     path('singleboarduser/<int:pk>/',Singleboarduserget.as_view()),
+    path('userpassinadminside/<int:id>',UserpassinAdminside.as_view()),
+    path('Petboardownerlist',Petboardownerlist.as_view()),
+    path('Pettakerlist',Pettakerlist.as_view()),
 
 
     

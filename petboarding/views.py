@@ -21,6 +21,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from decouple import config
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.filters import SearchFilter
+
 # from decouple import config
 
 
@@ -243,5 +246,38 @@ class Singleboarduserget(RetrieveUpdateDestroyAPIView):
     serializer_class=Userserilizers
     queryset=User.objects.all()
 
+#adminside data update
+class UserpassinAdminside(RetrieveUpdateDestroyAPIView):
+    serializer_class= Userserilizers
+    lookup_field='id'
+    queryset=User.objects.all()
 
+# board data get in to the adminside
+class Petboardownerlist(ListCreateAPIView):
+    serializer_class=Userserilizers
+    filter_backends = [SearchFilter]
+    search_fields = ['email', 'username', 'roles', 'is_active']
+
+    def get_queryset(self):
+        return User.objects.filter(roles='boarduser')
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+#Taker data get in to the adminside
+
+class Pettakerlist(ListCreateAPIView):
+    serializer_class=Userserilizers
+    filter_backends=[SearchFilter]
+    search_fields=['email', 'username', 'roles', 'is_active']
+
+    def get_queryset(self):
+        return User.objects.filter(roles='taker')
+    
+    def list(self, request, *args, **kwargs):
+        queryset=self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
