@@ -21,7 +21,7 @@ class forgotpasswordserial(serializers.ModelSerializer):
 class Boardformserial(serializers.ModelSerializer):
      class Meta:
           model = BoardingForm
-          fields= ['id','pettype','nuberofpetboarded','petbreed','petsize','additionalinfo','startdate','enddate']
+          fields= ['id','pettype','nuberofpetboarded','petbreed','petsize','additionalinfo','startdate','enddate','user']
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):

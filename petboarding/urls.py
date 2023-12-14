@@ -18,6 +18,7 @@ urlpatterns = [
     path('userpassinadminside/<int:id>',UserpassinAdminside.as_view()),
     path('Petboardownerlist',Petboardownerlist.as_view()),
     path('Pettakerlist',Pettakerlist.as_view()),
+    path('Updateboardprofile/<int:id>',Updateboardprofile.as_view()),
 
 
     

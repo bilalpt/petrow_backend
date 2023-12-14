@@ -38,6 +38,7 @@ class BoardingForm(models.Model):
     additionalinfo=models.CharField(max_length=240)
     startdate=models.DateField()
     enddate=models.DateField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
 
 

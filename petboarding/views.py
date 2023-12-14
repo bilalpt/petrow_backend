@@ -28,17 +28,9 @@ from rest_framework.filters import SearchFilter
 
 
 
-
-
-
-
-
-
-
 # Create your views here.
 
 # login and create token
-
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = myTokenObtainPairSerializer
 
@@ -145,8 +137,6 @@ def create_jwt_pair_tokens_board(boarduser):
 #google signup
 
 class googlesignup(APIView):
-        
-
     def post(self,request):
         email = request.data.get('email')
         password = request.data.get('password')
@@ -214,7 +204,6 @@ class forgotpassword(APIView):
 
 
 #boarding form
-
 class Boardingform(APIView):
     
     def get(self,request):
@@ -235,7 +224,6 @@ class Boardingform(APIView):
 
 
 # board form edit
-
 class BoardingformEdit(RetrieveUpdateDestroyAPIView):
     serializer_class = Boardformserial
     lookup_field = 'id'
@@ -281,3 +269,9 @@ class Pettakerlist(ListCreateAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+#board profile update
+
+class Updateboardprofile(RetrieveUpdateDestroyAPIView):
+    serializer_class=Userserilizers
+    lookup_field='id'
+    queryset=User.objects.all()
