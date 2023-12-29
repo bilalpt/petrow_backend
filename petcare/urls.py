@@ -22,6 +22,7 @@ urlpatterns = [
     path('AboutpageRetrive/<int:id>',AboutpageRetrive.as_view()),
     path('descriptionRetrive/<int:id>',descriptionRetrive.as_view()),
     path('TakerIdRetreve/<int:id>',TakerIdRetreve.as_view()),
+    path('Takeridproofallretreave',Takeridproofallretreave.as_view()),
 
 
 ]

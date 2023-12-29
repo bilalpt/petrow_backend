@@ -19,6 +19,7 @@ urlpatterns = [
     path('Petboardownerlist',Petboardownerlist.as_view()),
     path('Pettakerlist',Pettakerlist.as_view()),
     path('Updateboardprofile/<int:id>',Updateboardprofile.as_view()),
+    path('passingdataRedux/<int:id>/',passingdataRedux.as_view())
 
 
     

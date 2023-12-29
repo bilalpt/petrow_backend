@@ -21,6 +21,7 @@ class User(AbstractUser):
     roles=models.CharField(max_length=20,choices=USER_ROLES,default='boarduser')
     is_active = models.BooleanField(default=False)
     profileimage =models.ImageField(upload_to='userprofileimage/',null=True)
+    date_and_time = models.DateField(auto_now_add=True,null=True)
 
 
     USERNAME_FIELD = 'email'

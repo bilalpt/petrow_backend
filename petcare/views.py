@@ -273,3 +273,10 @@ class TakeridproofEdit(RetrieveUpdateDestroyAPIView):
     serializer_class=TakerFormidproofserial
     lookup_field='id'
     queryset=TakerwithIdform.objects.all()
+
+#taker id proofs listed
+    
+class Takeridproofallretreave(ListAPIView):
+    serializer_class=TakerFormidproofserial
+    queryset=TakerwithIdform.objects.all()
+

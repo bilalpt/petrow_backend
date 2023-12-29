@@ -21,7 +21,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from decouple import config
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView,ListAPIView
 from rest_framework.filters import SearchFilter
 
 # from decouple import config
@@ -255,7 +255,6 @@ class Petboardownerlist(ListCreateAPIView):
         return Response(serializer.data)
     
 #Taker data get in to the adminside
-
 class Pettakerlist(ListCreateAPIView):
     serializer_class=Userserilizers
     filter_backends=[SearchFilter]
@@ -275,3 +274,13 @@ class Updateboardprofile(RetrieveUpdateDestroyAPIView):
     serializer_class=Userserilizers
     lookup_field='id'
     queryset=User.objects.all()
+
+
+#board redux data passing 
+class passingdataRedux(ListAPIView):
+    serializer_class=Boardformserial
+    def get_queryset(self):
+        user_id=self.kwargs['id']
+        queryset=BoardingForm.objects.filter(user_id=user_id)
+        return queryset
+  
