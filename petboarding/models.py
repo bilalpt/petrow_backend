@@ -23,6 +23,9 @@ class User(AbstractUser):
     profileimage =models.ImageField(upload_to='userprofileimage/',null=True)
     date_and_time = models.DateField(auto_now_add=True,null=True)
 
+    accepttaker = models.BooleanField(default=False)
+
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

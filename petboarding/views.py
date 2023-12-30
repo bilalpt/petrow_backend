@@ -283,4 +283,6 @@ class passingdataRedux(ListAPIView):
         user_id=self.kwargs['id']
         queryset=BoardingForm.objects.filter(user_id=user_id)
         return queryset
+
+          
   
