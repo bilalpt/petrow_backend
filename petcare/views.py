@@ -261,6 +261,9 @@ class TakeridwithformView(CreateAPIView):
     serializer_class=TakerFormidproofserial 
     queryset=TakerwithIdform.objects.all()
 
+
+#taker request page image pass
+
 class TakerIdRetreve(ListAPIView):
     serializer_class=TakerFormidproofserial
     def get_queryset(self):
@@ -286,4 +289,12 @@ class Takerrequestupdate(RetrieveUpdateDestroyAPIView):
     lookup_field='id'
     queryset=User.objects.all()
 
+# petwith image listing in accept reject page in admin side
+
+class Petwithimagelist(ListAPIView):
+    serializer_class=TakerwithpetSerial
+    def get_queryset(self):
+        user_id=self.kwargs['id']
+        queryset=Takerwithpets.objects.filter(user_id=user_id)
+        return queryset
 

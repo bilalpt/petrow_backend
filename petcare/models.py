@@ -84,6 +84,8 @@ class TakerwithIdform(models.Model):
     adharimg=models.ImageField(upload_to='adharimg/')
     otheridimg=models.ImageField(upload_to='otheridimg/',null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True,null=True)
+    
+    Takeraccept =models.BooleanField(default=False)
 
 
 

@@ -23,6 +23,9 @@ urlpatterns = [
     path('descriptionRetrive/<int:id>',descriptionRetrive.as_view()),
     path('TakerIdRetreve/<int:id>',TakerIdRetreve.as_view()),
     path('Takeridproofallretreave',Takeridproofallretreave.as_view()),
+    path('Petwithimagelist/<int:id>',Petwithimagelist.as_view()),
+
+
 
 
 ]

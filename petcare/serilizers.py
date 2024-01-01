@@ -35,7 +35,7 @@ class Takeridproofserial(serializers.ModelSerializer):
 class TakerFormidproofserial(serializers.ModelSerializer):
     class Meta:
         model = TakerwithIdform
-        fields=['id','adharimg','otheridimg','user']
+        fields=['id','adharimg','otheridimg','user','Takeraccept']
 
 
 
