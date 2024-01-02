@@ -16,7 +16,8 @@ urlpatterns = [
     path('TakeridwithformView',TakeridwithformView.as_view()),
     path('TakeraboutEdit/<int:id>',TakeraboutEdit.as_view()),
     path('TakerwithpetEdit/<int:id>',TakerwithpetEdit.as_view()),
-    path('TakeridproofEdit/<int:id>',TakeridproofEdit.as_view()),
+    path('TakeridproofEdit/<int:id>', TakeridproofEdit.as_view(), name='taker-id-proof-edit'),
+    # path('TakeridproofEdit/<int:id>/', TakeridproofEdit.as_view()),
     # path('TakeraboutgetRedux',TakeraboutgetRedux.as_view()),
     # lilst about page
     path('AboutpageRetrive/<int:id>',AboutpageRetrive.as_view()),
@@ -24,8 +25,7 @@ urlpatterns = [
     path('TakerIdRetreve/<int:id>',TakerIdRetreve.as_view()),
     path('Takeridproofallretreave',Takeridproofallretreave.as_view()),
     path('Petwithimagelist/<int:id>',Petwithimagelist.as_view()),
-
-
-
+    # taker id delete
+    path('Takeridformdelete/<int:id>',Takeridformdelete.as_view())
 
 ]

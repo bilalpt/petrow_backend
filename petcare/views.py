@@ -16,7 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.shortcuts import HttpResponseRedirect
 from decouple import config
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView,DestroyAPIView
 
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 
@@ -298,3 +298,13 @@ class Petwithimagelist(ListAPIView):
         queryset=Takerwithpets.objects.filter(user_id=user_id)
         return queryset
 
+# taker reject time delete section
+class Takeridformdelete(DestroyAPIView):
+    queryset = TakerwithIdform.objects.all()
+    serializer_class = TakerFormidproofserial
+    lookup_url_kwarg = 'id'  
+
+    # def delete(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     self.perform_destroy(instance)
+    #     return Response(status=status.HTTP_204_NO_CONTENT)    

@@ -42,6 +42,7 @@ class BoardingForm(models.Model):
     startdate=models.DateField()
     enddate=models.DateField()
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    pincode=models.CharField(max_length=10,null=True)
 
 
 
