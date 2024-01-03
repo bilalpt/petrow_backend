@@ -94,3 +94,6 @@ class TakerwithIdform(models.Model):
 
 
 
+
+
+
