@@ -285,4 +285,14 @@ class passingdataRedux(ListAPIView):
         return queryset
 
           
-  
+# list taker in about user side 
+class listtkaerboardingside(ListAPIView):
+    serializer_class=bothusersrequestfeild
+
+    def get_queryset(self):
+        return Bothusersrequestfeild.objects.all()
+    
+    def list(self, request, *args, **kwargs):
+        queryset=self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)

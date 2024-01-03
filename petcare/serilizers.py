@@ -38,6 +38,9 @@ class TakerFormidproofserial(serializers.ModelSerializer):
         fields=['id','adharimg','otheridimg','user','Takeraccept']
 
 
+        
+
+
 
 class Petcareserilatoken(TokenObtainPairSerializer):
     @classmethod

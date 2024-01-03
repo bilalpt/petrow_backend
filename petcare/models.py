@@ -88,6 +88,13 @@ class TakerwithIdform(models.Model):
     Takeraccept =models.BooleanField(default=False)
 
 
+class Bothusersrequestfeild(models.Model):
+
+    tkerid=models.ForeignKey(TakerwithIdform,on_delete=models.CASCADE,null=True)
+    Bothusersrequestfeild=models.ForeignKey(DescribeServicetwo,on_delete=models.CASCADE,null=True)
+    boarding=models.ForeignKey(BoardingForm,on_delete=models.CASCADE,null=True)
+
+
 
 
 

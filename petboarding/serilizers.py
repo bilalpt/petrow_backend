@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from  .models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from petcare.models import *
 
 
 
@@ -22,6 +23,11 @@ class Boardformserial(serializers.ModelSerializer):
      class Meta:
           model = BoardingForm
           fields= ['id','pettype','nuberofpetboarded','petbreed','petsize','additionalinfo','startdate','enddate','pincode','user']
+
+class bothusersrequestfeild(serializers.ModelSerializer):
+    class Meta:
+        model = Bothusersrequestfeild
+        fields=['id','tkerid','tkrdescription','boarding']
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):
