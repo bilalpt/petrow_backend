@@ -88,11 +88,19 @@ class TakerwithIdform(models.Model):
     Takeraccept =models.BooleanField(default=False)
 
 
-class Bothusersrequestfeild(models.Model):
+class Invitation(models.Model):
 
-    tkerid=models.ForeignKey(TakerwithIdform,on_delete=models.CASCADE,null=True)
-    Bothusersrequestfeild=models.ForeignKey(DescribeServicetwo,on_delete=models.CASCADE,null=True)
-    boarding=models.ForeignKey(BoardingForm,on_delete=models.CASCADE,null=True)
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Accepted', 'Accepted'),
+        ('Rejected', 'Rejected'),
+    ]
+
+    sender=models.ForeignKey(BoardingForm,on_delete=models.CASCADE)
+    receiver=models.ForeignKey(TakerwithIdform,on_delete=models.CASCADE)
+    status=models.CharField(max_length=10, choices=STATUS_CHOICES ,default='Pending')
+
+    request=models.BooleanField(default=False)
 
 
 

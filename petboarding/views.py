@@ -286,11 +286,12 @@ class passingdataRedux(ListAPIView):
 
           
 # list taker in about user side 
+    
 class listtkaerboardingside(ListAPIView):
-    serializer_class=bothusersrequestfeild
+    serializer_class=inviteusers
 
     def get_queryset(self):
-        return Bothusersrequestfeild.objects.all()
+        return Invitation.objects.all()
     
     def list(self, request, *args, **kwargs):
         queryset=self.get_queryset()

@@ -24,10 +24,10 @@ class Boardformserial(serializers.ModelSerializer):
           model = BoardingForm
           fields= ['id','pettype','nuberofpetboarded','petbreed','petsize','additionalinfo','startdate','enddate','pincode','user']
 
-class bothusersrequestfeild(serializers.ModelSerializer):
+class inviteusers(serializers.ModelSerializer):
     class Meta:
-        model = Bothusersrequestfeild
-        fields=['id','tkerid','tkrdescription','boarding']
+        model = Invitation
+        fields=['id','sender','receiver','status','request']
 
 
 class myTokenObtainPairSerializer(TokenObtainPairSerializer):

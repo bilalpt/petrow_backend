@@ -9,5 +9,5 @@ admin.site.register(Takerwithpets)
 admin.site.register(Takeridproof)
 admin.site.register(TakerwithIdform)
 admin.site.register(DescribeServicetwo)
-admin.site.register(Bothusersrequestfeild)
+# admin.site.register(Bothusersrequestfeild)
 
