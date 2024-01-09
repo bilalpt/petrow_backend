@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from petcare.serilizers import *
 from .serilizers import *
 from .models import *
 from rest_framework.views import APIView
@@ -291,9 +292,61 @@ class listtkaerboardingside(ListAPIView):
     serializer_class=inviteusers
 
     def get_queryset(self):
-        return Invitation.objects.all()
-    
+            # Retrieve the last BoardingForm for the current user
+            last_boardingform = BoardingForm.objects.filter(user=self.request.user).order_by('-id').first()
+
+            if last_boardingform:
+                pincode = last_boardingform.pincode
+                # Retrieve the corresponding TakerwithIdform data where pincode matches
+                taker_data = TakerwithIdform.objects.filter(pincode=pincode).first()
+
+                if taker_data:
+                    return [last_boardingform, taker_data]
+            
+            return []
+
+class showtakerdetails(ListAPIView):
+    serializer_class = Compainedserializers
+
     def list(self, request, *args, **kwargs):
-        queryset=self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+        # Fetching data from the models
+        taker_queryset = TakerwithIdform.objects.filter(Takeraccept=True)
+        trueuserid=[taker.user.id for taker in taker_queryset]
+        print(trueuserid,'oneone oneone oneone')
+
+        Describe = DescribeServicetwo.objects.all()
+
+        if Describe:
+            for userid in trueuserid:
+                for describeuser in Describe:
+                    print(describeuser.user.id,'lolllllllll')
+                    if userid==describeuser.user.id:
+                        print('baxter')
+                    else:
+                        print('not baxter')    
+
+        # Retrieve id from URL kwargs
+        board_id = self.kwargs.get('id', None)
+        print(board_id)
+
+        if board_id is not None:
+            board_queryset = BoardingForm.objects.filter(user=board_id)
+            for board in board_queryset:
+                print(board, 'baxter')
+        else:
+            board_queryset = BoardingForm.objects.none()
+
+        # Serializing the data
+        try:
+            serializer = self.get_serializer({
+                'takerformidserialdatas': taker_queryset,
+                'boardingformdata': board_queryset,
+                'ServiceDescriptiondata': Describe,  # Ensure this key matches the serializer
+            })
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error in showtakerdetails view: {e}")
+            return Response({"error": "Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+

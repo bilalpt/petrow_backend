@@ -20,9 +20,7 @@ urlpatterns = [
     path('Pettakerlist',Pettakerlist.as_view()),
     path('Updateboardprofile/<int:id>',Updateboardprofile.as_view()),
     path('passingdataRedux/<int:id>/',passingdataRedux.as_view()),
-    path('listtkaerboardingside',listtkaerboardingside.as_view())
-
-
-    
+    path('listtkaerboardingside',listtkaerboardingside.as_view()),
+    path('showtakerdetails/<int:id>',showtakerdetails.as_view()),
 
 ]
