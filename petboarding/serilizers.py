@@ -29,16 +29,33 @@ class TakerFormidproofserialPetcare(serializers.ModelSerializer):
         model = TakerwithIdform
         fields=['id','adharimg','otheridimg','user','Takeraccept']
 
+#taker about page serial
+class TakerAboutPageserial(serializers.ModelSerializer):
+    class Meta:
+        model=TakerAbotpag
+        fields=['id','introduction','petexperience','workstatus','skillandqualifications','otherpetqualifications','user']
+
+#taker with pet serial
+class TakerwithpetSerial(serializers.ModelSerializer):
+    class Meta:
+        model=Takerwithpets
+        fields=['id','image','uploaded_at','user']
 
 class ServiceDescriptionSerial(serializers.ModelSerializer):
     class Meta:
         model=DescribeServicetwo
-        fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode','user']        
+        fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode','user']
+
+
+
 
 class Compainedserializers(serializers.Serializer):
     takerformidserialdatas = TakerFormidproofserialPetcare(many=True)
     boardingformdata = Boardformserial(many=True)
     ServiceDescriptiondata=ServiceDescriptionSerial(many=True)
+    Takeraboutdata=TakerAboutPageserial(many=True)
+    Takerwithpetdata=TakerwithpetSerial(many=True)
+
 
 
 

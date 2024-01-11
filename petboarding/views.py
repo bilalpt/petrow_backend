@@ -305,6 +305,9 @@ class listtkaerboardingside(ListAPIView):
             
             return []
 
+
+# listing Taker datas at same pincode 
+ 
 class showtakerdetails(ListAPIView):
     serializer_class = Compainedserializers
 
@@ -312,29 +315,46 @@ class showtakerdetails(ListAPIView):
         # Fetching data from the models
         taker_queryset = TakerwithIdform.objects.filter(Takeraccept=True)
         trueuserid=[taker.user.id for taker in taker_queryset]
-        print(trueuserid,'oneone oneone oneone')
-
         Describe = DescribeServicetwo.objects.all()
 
+        userdetailsids=[]
+        describesorted=[]
+        aboutarray=[]
+        Takerwithpetdata=[]
         if Describe:
             for userid in trueuserid:
                 for describeuser in Describe:
-                    print(describeuser.user.id,'lolllllllll')
                     if userid==describeuser.user.id:
-                        print('baxter')
+                        data=DescribeServicetwo.objects.filter(user=userid)
+                        describesorted.append(data)
+                        print(describesorted,'checking userdata')                    
                     else:
-                        print('not baxter')    
-
+                        print('no data found')    
         # Retrieve id from URL kwargs
         board_id = self.kwargs.get('id', None)
-        print(board_id)
 
-        if board_id is not None:
+        if board_id:
             board_queryset = BoardingForm.objects.filter(user=board_id)
-            for board in board_queryset:
-                print(board, 'baxter')
+            if board_queryset :
+                    for describedata in  describesorted:
+                        print(describedata[0],'lol')
+                        one=describedata[0]
+                        for boarduser in board_queryset:
+                            if one.pincode==boarduser.pincode:
+                                userdetailsids.append(one.user.id)
         else:
             board_queryset = BoardingForm.objects.none()
+
+        if userdetailsids:
+            for i in userdetailsids:
+                aboutdata=TakerAbotpag.objects.filter(user=i)
+                aboutarray.extend(list(aboutdata))
+
+        if userdetailsids:
+            for j in userdetailsids:
+                petwithimage=Takerwithpets.objects.filter(user=j)
+                Takerwithpetdata.extend(list(petwithimage))
+
 
         # Serializing the data
         try:
@@ -342,6 +362,8 @@ class showtakerdetails(ListAPIView):
                 'takerformidserialdatas': taker_queryset,
                 'boardingformdata': board_queryset,
                 'ServiceDescriptiondata': Describe,  # Ensure this key matches the serializer
+                'Takeraboutdata':aboutarray,
+                'Takerwithpetdata':Takerwithpetdata,
             })
             return Response(serializer.data)
         except Exception as e:
