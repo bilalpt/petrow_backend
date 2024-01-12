@@ -55,6 +55,7 @@ class Compainedserializers(serializers.Serializer):
     ServiceDescriptiondata=ServiceDescriptionSerial(many=True)
     Takeraboutdata=TakerAboutPageserial(many=True)
     Takerwithpetdata=TakerwithpetSerial(many=True)
+    userserializer=Userserilizers(many=True)
 
 
 

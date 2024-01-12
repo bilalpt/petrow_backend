@@ -318,9 +318,24 @@ class showtakerdetails(ListAPIView):
         Describe = DescribeServicetwo.objects.all()
 
         userdetailsids=[]
+
+        #this discription using pincode validation arry 
         describesorted=[]
+        # end discription using pincode validation array 
+
+        discriptionarray=[]
+        discriptionarray2=[]
+
+
+
         aboutarray=[]
+        aboutarray2=[]
+
+
+
         Takerwithpetdata=[]
+        Takerwithpetdata2=[]
+        userdata=[]
         if Describe:
             for userid in trueuserid:
                 for describeuser in Describe:
@@ -337,7 +352,6 @@ class showtakerdetails(ListAPIView):
             board_queryset = BoardingForm.objects.filter(user=board_id)
             if board_queryset :
                     for describedata in  describesorted:
-                        print(describedata[0],'lol')
                         one=describedata[0]
                         for boarduser in board_queryset:
                             if one.pincode==boarduser.pincode:
@@ -345,30 +359,99 @@ class showtakerdetails(ListAPIView):
         else:
             board_queryset = BoardingForm.objects.none()
 
-        if userdetailsids:
-            for i in userdetailsids:
-                aboutdata=TakerAbotpag.objects.filter(user=i)
-                aboutarray.extend(list(aboutdata))
+#  about data data passing             
 
         if userdetailsids:
-            for j in userdetailsids:
+            aboutdataloop=list(dict.fromkeys(userdetailsids))
+            for i in aboutdataloop:
+                aboutdata=TakerAbotpag.objects.filter(user=i)
+                aboutarray.extend(list(aboutdata))    
+        else:
+            print('userdetailsids not found')
+
+        if aboutarray:
+            unique_user_about=set()
+            for aboutdata in aboutarray[::-1]:
+                if aboutdata.user.id and aboutdata.user.id not in unique_user_about:
+                    unique_user_about.add(aboutdata.user.id)
+                    aboutarray2.extend([aboutdata])
+                else:
+                    print('about not found')
+        else:
+            print('about not found')              
+
+# end  about data data passing
+            
+# taker discription data passing 
+        
+        if userdetailsids:
+            description_data=list(dict.fromkeys(userdetailsids))
+            for i in description_data:
+                discriptiondata=DescribeServicetwo.objects.filter(user=i)
+                discriptionarray.extend(list(discriptiondata))
+        else:
+            print(' userdetailsids not found ')
+
+        if discriptionarray:
+            unique_user_description=set()
+            for descrip in  discriptionarray:
+                if descrip.user.id and descrip.user.id not in unique_user_description:
+                    unique_user_description.add(descrip.user.id)
+                    discriptionarray2.extend([descrip])
+                else:
+                    print('discriptionarray2 not found ') 
+        else:
+            print('discriptionarray not found')               
+
+# taker discription data passing            
+            
+#  Takerwithpets data passing             
+        if userdetailsids:
+            withpetloop=list(dict.fromkeys(userdetailsids))
+            for j in withpetloop:
                 petwithimage=Takerwithpets.objects.filter(user=j)
                 Takerwithpetdata.extend(list(petwithimage))
+        else:
+            print('not found')        
 
+        if Takerwithpetdata:
+            unique_user_ids = set()
+            for petdata in Takerwithpetdata[::-1]:
+                if petdata.user.id and petdata.user.id not in unique_user_ids:
+                    unique_user_ids.add(petdata.user.id)
+                    Takerwithpetdata2.extend([petdata])
+                    print(Takerwithpetdata2, 'lal bahadoor shastri')
+                else:
+                    print('no vlaue found')    
+        else:
+            print('not found')
+# end Takerwithpets data passing 
+
+
+        if userdetailsids:
+            data=list(dict.fromkeys(userdetailsids))
+            for k in  data:
+                userdetails=User.objects.filter(id=k)
+                userdata.extend(list(userdetails))
+        else:
+            print('not found')
+
+        
 
         # Serializing the data
         try:
             serializer = self.get_serializer({
-                'takerformidserialdatas': taker_queryset,
+                'takerformidserialdatas': taker_queryset,# not need in frondent just checking for true of false condition
                 'boardingformdata': board_queryset,
-                'ServiceDescriptiondata': Describe,  # Ensure this key matches the serializer
-                'Takeraboutdata':aboutarray,
-                'Takerwithpetdata':Takerwithpetdata,
+                'ServiceDescriptiondata': discriptionarray2,  # Ensure this key matches the serializer
+                'Takeraboutdata':aboutarray2,
+                'Takerwithpetdata':Takerwithpetdata2,
+                'userserializer':userdata
             })
             return Response(serializer.data)
         except Exception as e:
             print(f"Error in showtakerdetails view: {e}")
-            return Response({"error": "Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "Internal Server Error"}, status=status.no user found)
 
 
 
