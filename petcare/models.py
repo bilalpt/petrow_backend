@@ -2,6 +2,7 @@ from django.db import models
 from petboarding.models import *
 
 
+
 # # Create your models here.
 
 #taker about page
@@ -99,8 +100,11 @@ class Invitation(models.Model):
     sender=models.ForeignKey(BoardingForm,on_delete=models.CASCADE)
     receiver=models.ForeignKey(TakerwithIdform,on_delete=models.CASCADE)
     status=models.CharField(max_length=10, choices=STATUS_CHOICES ,default='Pending')
-
     request=models.BooleanField(default=False)
+
+
+
+
 
 
 

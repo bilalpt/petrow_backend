@@ -289,21 +289,27 @@ class passingdataRedux(ListAPIView):
 # list taker in about user side 
     
 class listtkaerboardingside(ListAPIView):
-    serializer_class=inviteusers
+    serializer_class = inviteusers
 
     def get_queryset(self):
-            # Retrieve the last BoardingForm for the current user
-            last_boardingform = BoardingForm.objects.filter(user=self.request.user).order_by('-id').first()
+        # Exclude instances where the sender (BoardingForm) is null
+        queryset = Invitation.objects.all()
+        return queryset
 
-            if last_boardingform:
-                pincode = last_boardingform.pincode
-                # Retrieve the corresponding TakerwithIdform data where pincode matches
-                taker_data = TakerwithIdform.objects.filter(pincode=pincode).first()
+class test(APIView):
+    
+    def get(self,request):
+        print('--->')
+        queryset = Invitation.objects.all()
+        print(queryset)
+        serializer = inviteusers(queryset, many=True)
 
-                if taker_data:
-                    return [last_boardingform, taker_data]
-            
-            return []
+        return Response(serializer.data)
+
+
+
+
+
 
 
 # listing Taker datas at same pincode 
@@ -349,7 +355,8 @@ class showtakerdetails(ListAPIView):
         board_id = self.kwargs.get('id', None)
 
         if board_id:
-            board_queryset = BoardingForm.objects.filter(user=board_id)
+            board_queryset = BoardingForm.objects.filter(user=board_id)[::-1]
+            print(board_queryset,'board_queryse,adhil')
             if board_queryset :
                     for describedata in  describesorted:
                         one=describedata[0]
@@ -451,7 +458,7 @@ class showtakerdetails(ListAPIView):
             return Response(serializer.data)
         except Exception as e:
             print(f"Error in showtakerdetails view: {e}")
-            return Response({"error": "Internal Server Error"}, status=status.no user found)
+            return Response({"error": "Internal Server Error"}, status=status.DATA_NOT_FOUND)
 
 
 

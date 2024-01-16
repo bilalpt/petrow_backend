@@ -2,6 +2,7 @@ from rest_framework import serializers
 from  petboarding.models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
+from petcare.models import *
 
 class PetcareSerilizers(serializers.ModelSerializer):
     class Meta:
@@ -37,9 +38,7 @@ class TakerFormidproofserial(serializers.ModelSerializer):
         model = TakerwithIdform
         fields=['id','adharimg','otheridimg','user','Takeraccept']
 
-
-        
-
+    
 
 
 class Petcareserilatoken(TokenObtainPairSerializer):

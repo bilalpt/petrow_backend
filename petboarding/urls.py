@@ -22,5 +22,6 @@ urlpatterns = [
     path('passingdataRedux/<int:id>/',passingdataRedux.as_view()),
     path('listtkaerboardingside',listtkaerboardingside.as_view()),
     path('showtakerdetails/<int:id>',showtakerdetails.as_view()),
+    path('test',test.as_view()),
 
 ]

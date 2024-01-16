@@ -61,10 +61,15 @@ class Compainedserializers(serializers.Serializer):
 
 
 
+
+
 class inviteusers(serializers.ModelSerializer):
+    # receiver=TakerwithpetSerial()
+    # sender=Boardformserial()
     class Meta:
         model = Invitation
-        fields=['id','sender','receiver','status','request']
+        fields = ['id', 'sender', 'receiver', 'status', 'request']
+
 
 
 

@@ -32,6 +32,8 @@ import os
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'petboarding',
+    'chat',
     'corsheaders',
     'petcare',
     'mainadmin',
     'rest_framework',
     'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -79,6 +83,8 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+
 #simple jwt
 
 REST_FRAMEWORK = {
@@ -107,6 +113,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Project.wsgi.application'
+ASGI_APPLICATION ='Project.asgi.application'
+
 
 
 # Database
@@ -118,7 +126,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+#chat channel layer
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 

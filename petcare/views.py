@@ -257,6 +257,7 @@ class Takeridproofclass(ListCreateAPIView):
 
 
 #taker id proof with form
+    
 class TakeridwithformView(CreateAPIView):
     serializer_class=TakerFormidproofserial 
     queryset=TakerwithIdform.objects.all()
