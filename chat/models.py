@@ -11,6 +11,3 @@ class Message(models.Model):
     thread_name = models.CharField(null=True, blank=True, max_length=200)
     timestamp=models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-            
-            return f"{self.sender.first_name} sent to {self.reciever.first_name} at {self.timestamp}"

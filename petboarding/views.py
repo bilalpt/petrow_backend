@@ -5,7 +5,6 @@ from .serilizers import *
 from .models import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# from rest_framework.generics import CreateAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -448,9 +447,9 @@ class showtakerdetails(ListAPIView):
         # Serializing the data
         try:
             serializer = self.get_serializer({
-                'takerformidserialdatas': taker_queryset,# not need in frondent just checking for true of false condition
+                'takerformidserialdatas': taker_queryset,
                 'boardingformdata': board_queryset,
-                'ServiceDescriptiondata': discriptionarray2,  # Ensure this key matches the serializer
+                'ServiceDescriptiondata': discriptionarray2,  
                 'Takeraboutdata':aboutarray2,
                 'Takerwithpetdata':Takerwithpetdata2,
                 'userserializer':userdata
@@ -459,6 +458,12 @@ class showtakerdetails(ListAPIView):
         except Exception as e:
             print(f"Error in showtakerdetails view: {e}")
             return Response({"error": "Internal Server Error"}, status=status.DATA_NOT_FOUND)
+        
+# listing all users for the graph 
+class GraphUsers(ListAPIView):
+    serializer_class= Userserilizers
+    queryset=User.objects.all()       
+        
 
 
 

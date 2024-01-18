@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
-from petboarding.models import CustomUser
+# from petboarding.models import User
 from petboarding.serilizers import *
 from .models import Message
 
@@ -10,4 +10,4 @@ class MessageSerializer(ModelSerializer):
 
     class Meta:
         model=Message
-        fields=['message','sender_email','timestamp']
+        fields=['message','sender_email']
