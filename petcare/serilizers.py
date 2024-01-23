@@ -38,7 +38,12 @@ class TakerFormidproofserial(serializers.ModelSerializer):
         model = TakerwithIdform
         fields=['id','adharimg','otheridimg','user','Takeraccept']
 
-    
+
+class TakerCompainedserializers(serializers.Serializer):
+    takerformidserialdatas = TakerFormidproofserial(many=True)
+    ServiceDescriptiondata=ServiceDescriptionSerial(many=True)
+    Takeraboutdata=TakerAboutPageserial(many=True)
+    Takerwithpetdata=TakerwithpetSerial(many=True)
 
 
 class Petcareserilatoken(TokenObtainPairSerializer):

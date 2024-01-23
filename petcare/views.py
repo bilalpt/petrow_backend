@@ -22,6 +22,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIVi
 
 from django.views import View
 from petboarding.models import User
+from petboarding.serilizers import *
 
 import json
 # for the multiple image
@@ -305,4 +306,53 @@ class Takeridformdelete(DestroyAPIView):
     serializer_class = TakerFormidproofserial
     lookup_url_kwarg = 'id'  
 
-   
+# Home showing Taker users
+
+class Takerusershow(ListAPIView):
+    serializer_class=TakerCompainedserializers
+    def list(self, request, *args, **kwargs):
+        accepteduser=[]
+        aboutuser=[]
+        descriptions=[]
+        withpet=[]
+
+        taker_queryset = TakerwithIdform.objects.filter(Takeraccept=True)
+        for i in taker_queryset:
+            accepteduser.append(i.user)
+            for j in accepteduser:
+                removeduplicate=set()
+                descriptiondata=DescribeServicetwo.objects.filter(user=j)
+                for description in descriptiondata:
+                    if description.user.id and description.user.id not in removeduplicate:
+                        removeduplicate.add(description.user.id)
+                        descriptions.append(description)
+
+                abotpage=TakerAbotpag.objects.filter(user=j)
+                duplicate=set()
+                for z in abotpage:
+                    if z.user.id and z.user.id not in duplicate:
+                        duplicate.add(z.user.id)
+                        aboutuser.append(z)
+                    
+
+                withpets=Takerwithpets.objects.filter(user=j)
+                setduplicate=set()
+                for pets in withpets:
+                    if pets.user.id and pets.user.id not in setduplicate:
+                        setduplicate.add(pets.user.id)
+                        withpet.append(pets)
+
+        print(taker_queryset,'daxo')
+
+        try:
+            serializers=self.get_serializer({
+                'takerformidserialdatas':taker_queryset,
+                'ServiceDescriptiondata':descriptions,
+                'Takeraboutdata':aboutuser,
+                'Takerwithpetdata':withpets,
+
+            })
+            return Response(serializers.data)
+        except Exception as e:
+            print(f"Error in showtakerdetails view: {e}")
+            return Response({"error": "Internal Server Error"})

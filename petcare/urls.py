@@ -26,6 +26,7 @@ urlpatterns = [
     path('Takeridproofallretreave',Takeridproofallretreave.as_view()),
     path('Petwithimagelist/<int:id>',Petwithimagelist.as_view()),
     # taker id delete
-    path('Takeridformdelete/<int:id>',Takeridformdelete.as_view())
+    path('Takeridformdelete/<int:id>',Takeridformdelete.as_view()),
+    path('Takerusershow',Takerusershow.as_view()),
 
 ]

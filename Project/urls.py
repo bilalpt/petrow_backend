@@ -25,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('petboarding/',include('petboarding.urls')),
     path('petcare/',include('petcare.urls')),
-    path('mainadmin/',include('mainadmin.urls'))
+    path('mainadmin/',include('mainadmin.urls')),
+    path('chat/',include('chat.urls'))
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
