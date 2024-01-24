@@ -24,5 +24,6 @@ urlpatterns = [
     path('showtakerdetails/<int:id>',showtakerdetails.as_view()),
     path('test',test.as_view()),
     path('GraphUsers/',GraphUsers.as_view()),
+    path('Boardinvitation',Boardinvitation.as_view()),
 
 ]

@@ -47,8 +47,6 @@ class ServiceDescriptionSerial(serializers.ModelSerializer):
         fields=['id','servicename','petcount','acceptingpet','acceptingpetsize','howmanywalk','apartmentorhome','transportemergencies','sleepinglocation','price','location','pincode','user']
 
 
-
-
 class Compainedserializers(serializers.Serializer):
     takerformidserialdatas = TakerFormidproofserialPetcare(many=True)
     boardingformdata = Boardformserial(many=True)
@@ -56,11 +54,6 @@ class Compainedserializers(serializers.Serializer):
     Takeraboutdata=TakerAboutPageserial(many=True)
     Takerwithpetdata=TakerwithpetSerial(many=True)
     userserializer=Userserilizers(many=True)
-
-
-
-
-
 
 
 class inviteusers(serializers.ModelSerializer):

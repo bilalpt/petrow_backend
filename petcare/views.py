@@ -319,40 +319,46 @@ class Takerusershow(ListAPIView):
         taker_queryset = TakerwithIdform.objects.filter(Takeraccept=True)
         for i in taker_queryset:
             accepteduser.append(i.user)
-            for j in accepteduser:
-                removeduplicate=set()
-                descriptiondata=DescribeServicetwo.objects.filter(user=j)
-                for description in descriptiondata:
-                    if description.user.id and description.user.id not in removeduplicate:
-                        removeduplicate.add(description.user.id)
-                        descriptions.append(description)
 
-                abotpage=TakerAbotpag.objects.filter(user=j)
-                duplicate=set()
-                for z in abotpage:
-                    if z.user.id and z.user.id not in duplicate:
-                        duplicate.add(z.user.id)
-                        aboutuser.append(z)
+        accepteduser=accepteduser[-3:]
+    
+
+        for j in accepteduser:
+            removeduplicate=set()
+            descriptiondata=DescribeServicetwo.objects.filter(user=j)
+            for description in descriptiondata:
+                if description.user.id and description.user.id not in removeduplicate:
+                    removeduplicate.add(description.user.id)
+                    descriptions.append(description)
+
+            abotpage=TakerAbotpag.objects.filter(user=j)
+            duplicate=set()
+            for z in abotpage:
+                if z.user.id and z.user.id not in duplicate:
+                    duplicate.add(z.user.id)
+                    aboutuser.append(z)
                     
 
-                withpets=Takerwithpets.objects.filter(user=j)
-                setduplicate=set()
-                for pets in withpets:
-                    if pets.user.id and pets.user.id not in setduplicate:
-                        setduplicate.add(pets.user.id)
-                        withpet.append(pets)
+            withpets=Takerwithpets.objects.filter(user=j)
+            setduplicate=set()
+            for pets in withpets:
+                if pets.user.id and pets.user.id not in setduplicate:
+                    setduplicate.add(pets.user.id)
+                    withpet.append(pets)
 
-        print(taker_queryset,'daxo')
 
         try:
             serializers=self.get_serializer({
                 'takerformidserialdatas':taker_queryset,
                 'ServiceDescriptiondata':descriptions,
                 'Takeraboutdata':aboutuser,
-                'Takerwithpetdata':withpets,
+                'Takerwithpetdata':withpet,
 
             })
             return Response(serializers.data)
         except Exception as e:
             print(f"Error in showtakerdetails view: {e}")
             return Response({"error": "Internal Server Error"})
+
+
+

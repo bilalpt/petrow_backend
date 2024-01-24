@@ -21,7 +21,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from decouple import config
-from rest_framework.generics import ListCreateAPIView,ListAPIView
+from rest_framework.generics import ListCreateAPIView,ListAPIView,CreateAPIView
 from rest_framework.filters import SearchFilter
 
 # from decouple import config
@@ -306,11 +306,6 @@ class test(APIView):
         return Response(serializer.data)
 
 
-
-
-
-
-
 # listing Taker datas at same pincode 
  
 class showtakerdetails(ListAPIView):
@@ -465,5 +460,7 @@ class GraphUsers(ListAPIView):
     queryset=User.objects.all()       
         
 
-
+class Boardinvitation(CreateAPIView):
+    serializer_class=inviteusers
+    queryset=Invitation.objects.all()
 
