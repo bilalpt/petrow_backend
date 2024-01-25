@@ -461,6 +461,7 @@ class GraphUsers(ListAPIView):
         
 
 class Boardinvitation(CreateAPIView):
-    serializer_class=inviteusers
+
     queryset=Invitation.objects.all()
+    serializer_class=inviteusers
 

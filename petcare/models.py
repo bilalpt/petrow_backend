@@ -20,9 +20,6 @@ class TakerAbotpag(models.Model):
         verbose_name_plural = 'Taker Abotpag'
 
 
-    
-
-
 #taker description
  
 class DescribeService(models.Model):
@@ -96,23 +93,8 @@ class Invitation(models.Model):
         ('Accepted', 'Accepted'),
         ('Rejected', 'Rejected'),
     ]
-
-    sender=models.ForeignKey(BoardingForm,on_delete=models.CASCADE)
-    receiver=models.ForeignKey(TakerwithIdform,on_delete=models.CASCADE)
+    sender=models.ForeignKey(User,on_delete=models.CASCADE,related_name='sent_invitations')
+    receiver=models.ForeignKey(User,on_delete=models.CASCADE,related_name='received_invitations')
+    boardingform=models.ForeignKey(BoardingForm,on_delete=models.CASCADE,null=True)
     status=models.CharField(max_length=10, choices=STATUS_CHOICES ,default='Pending')
     request=models.BooleanField(default=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
