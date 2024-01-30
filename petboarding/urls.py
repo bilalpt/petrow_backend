@@ -25,5 +25,6 @@ urlpatterns = [
     path('test',test.as_view()),
     path('GraphUsers/',GraphUsers.as_view()),
     path('Boardinvitation',Boardinvitation.as_view()),
+    path('ListInvitation',ListInvitation.as_view()),
 
 ]

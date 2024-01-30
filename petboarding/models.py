@@ -32,8 +32,6 @@ class User(AbstractUser):
 
     # branch rename 
 
-
-
 class BoardingForm(models.Model):
     pettype=models.CharField(max_length=12)
     nuberofpetboarded=models.CharField(max_length=20)
