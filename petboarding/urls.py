@@ -26,5 +26,8 @@ urlpatterns = [
     path('GraphUsers/',GraphUsers.as_view()),
     path('Boardinvitation',Boardinvitation.as_view()),
     path('ListInvitation',ListInvitation.as_view()),
+    path('Updateinvitation/<int:id>',Updateinvitation.as_view()),
+    path('Rejectinvitation/<int:id>',Rejectinvitation.as_view()),
+
 
 ]

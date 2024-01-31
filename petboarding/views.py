@@ -468,4 +468,32 @@ class ListInvitation(ListAPIView):
     queryset=Invitation.objects.all()
     serializer_class=inviteusers
 
+# taker invitation accept 
+class Updateinvitation(RetrieveUpdateDestroyAPIView):
+    serializer_class = inviteusers
+    lookup_field = 'id'
+    queryset = Invitation.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.status = 'Accepted'  # Update status to 'Accepted'
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK) 
+
+# taker invitation accept 
+class Rejectinvitation(RetrieveUpdateDestroyAPIView):
+    serializer_class = inviteusers
+    lookup_field = 'id'
+    queryset = Invitation.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.status = 'Rejected'
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)          
+
 
