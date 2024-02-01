@@ -60,9 +60,6 @@ class Petcare(APIView):
             user.set_password(password)
             user.save()
 
-
-
-
             current_site = get_current_site(request)
             mail_subject = 'Please activate your account'
             message = render_to_string('account_verification.html', {
@@ -76,8 +73,6 @@ class Petcare(APIView):
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
-
-
 
             response_data = {
                 'status': 'success',

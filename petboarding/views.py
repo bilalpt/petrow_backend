@@ -482,7 +482,7 @@ class Updateinvitation(RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK) 
 
-# taker invitation accept 
+# taker invitation Reject 
 class Rejectinvitation(RetrieveUpdateDestroyAPIView):
     serializer_class = inviteusers
     lookup_field = 'id'
