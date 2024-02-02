@@ -47,7 +47,6 @@ class petboard(APIView):
     def post(self,request):
         email = request.data.get('email')
         password = request.data.get('password')
-        # print('daxo')
         serializer=Userserilizers(data=request.data)
         if  serializer.is_valid():
             user=serializer.save()
@@ -100,14 +99,14 @@ def activate(request, uidb64, token):
         token = create_jwt_pair_tokens_board(user)
         if user.roles=='boarduser':
 
-            redirect_url = 'http://localhost:5173/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
+            redirect_url = 'https://petrow-frondent-ceo4ey3nc-bilalpts-projects.vercel.app/PetBoards/BoardLogin' + '?message=' + message + '&token' + str(token)
         else:
-            redirect_url = 'http://localhost:5173/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
+            redirect_url = 'https://petrow-frondent-ceo4ey3nc-bilalpts-projects.vercel.app/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
 
 
     else:
         message = 'Invalid activation link'
-        redirect_url = 'http://localhost:5173/PetBoards/signup/' + '?message=' + message
+        redirect_url = 'https://petrow-frondent-ceo4ey3nc-bilalpts-projects.vercel.app/PetBoards/signup/' + '?message=' + message
     
     
     return HttpResponseRedirect(redirect_url)

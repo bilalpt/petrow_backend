@@ -112,11 +112,11 @@ def activate(request, uidb64, token):
         # Baseurl=config('Baseurl')
         if user.roles=='taker':
 
-            redirect_url = 'http://localhost:5173/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
+            redirect_url = 'https://petrow-frondent-ceo4ey3nc-bilalpts-projects.vercel.app/PetBoards/CareLogin' + '?message=' + message + '&token' + str(token)
 
     else:
         message = 'Invalid activation link'
-        redirect_url =  'http://localhost:5173/CareSignup/' + '?message=' + message
+        redirect_url =  'https://petrow-frondent-ceo4ey3nc-bilalpts-projects.vercel.app/CareSignup/' + '?message=' + message
     
     
     return HttpResponseRedirect(redirect_url)
