@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+from decouple import config
 
 from pathlib import Path
 
@@ -26,6 +27,7 @@ SECRET_KEY = 'django-insecure-+es@qxswg3i^0isxyzuoic+h#(=&_=ie$=x%q#ld6g%^&o-dxr
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 import os
 
 
@@ -130,7 +132,10 @@ DATABASES = {
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(config('redis'))]
+        },
     }
 }
 
